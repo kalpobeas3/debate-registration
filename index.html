@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debate Championship — Registration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #12172B;
+    --ink-2: #1C2340;
+    --ink-3: #262E52;
+    --paper: #F5F1E6;
+    --paper-2: #ECE5D3;
+    --gold: #C9A227;
+    --gold-bright: #E4BE45;
+    --crimson: #8B2635;
+    --text-on-ink: #EDE7D9;
+    --muted-on-ink: #9498B5;
+    --text-on-paper: #1B1F3B;
+    --muted-on-paper: #756F60;
+    --radius-card: 2px;
+    --radius-pill: 999px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text-on-ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  a{ color:inherit; }
+
+  /* ---------- layout shell ---------- */
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  header.topbar{
+    padding:26px 0 0;
+  }
+  .topbar .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(237,231,217,0.14);
+    padding-bottom:18px;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size:19px;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+  .brand em{ font-style:italic; color:var(--gold-bright); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:64px 0 80px;
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:start;
+  }
+  .hero-copy .kicker{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:19px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(38px, 5.2vw, 60px);
+    line-height:1.04;
+    letter-spacing:-0.01em;
+    margin:0 0 22px;
+    max-width:11ch;
+  }
+  .hero-copy p.lede{
+    font-size:17px;
+    line-height:1.6;
+    color:var(--muted-on-ink);
+    max-width:46ch;
+    margin:0 0 30px;
+  }
+
+  .facts{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0;
+    border-top:1px solid rgba(237,231,217,0.16);
+  }
+  .fact{
+    flex:1 1 33%;
+    padding:16px 18px 16px 0;
+    border-bottom:1px solid rgba(237,231,217,0.16);
+  }
+  .fact .label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--muted-on-ink);
+    margin-bottom:6px;
+  }
+  .fact .value{
+    font-family:'Fraunces', serif;
+    font-size:18px;
+    color:var(--text-on-ink);
+  }
+  .fact .value.accent{ color:var(--gold-bright); }
+
+  .checklist{
+    margin-top:34px;
+  }
+  .checklist .label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--muted-on-ink);
+    margin-bottom:12px;
+  }
+  .checklist ul{
+    list-style:none;
+    margin:0; padding:0;
+    display:grid;
+    gap:10px;
+  }
+  .checklist li{
+    display:flex;
+    gap:10px;
+    font-size:14.5px;
+    color:var(--text-on-ink);
+    align-items:flex-start;
+  }
+  .checklist svg{ flex:none; margin-top:2px; }
+
+  /* ---------- gavel illustration ---------- */
+  .illustration{
+    display:flex;
+    justify-content:center;
+    padding-top:8px;
+  }
+  .illustration svg{ width:100%; max-width:340px; height:auto; }
+  .stroke-draw{
+    stroke-dasharray:600;
+    stroke-dashoffset:600;
+    animation:draw 1.8s ease forwards 0.2s;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  /* ---------- form panel ---------- */
+  .panel{
+    background:var(--paper);
+    color:var(--text-on-paper);
+    border-radius:var(--radius-card);
+    padding:38px 36px 34px;
+    position:sticky;
+    top:24px;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.55);
+  }
+  .panel-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:6px;
+  }
+  .panel h2{
+    font-family:'Fraunces', serif;
+    font-size:24px;
+    font-weight:600;
+    margin:0;
+  }
+  .panel .stamp{
+    font-size:11px;
+    letter-spacing:0.06em;
+    color:var(--crimson);
+    border:1px solid var(--crimson);
+    padding:3px 8px;
+    border-radius:var(--radius-pill);
+    white-space:nowrap;
+  }
+  .panel p.sub{
+    font-size:13.5px;
+    color:var(--muted-on-paper);
+    margin:0 0 26px;
+  }
+
+  form{ display:grid; gap:18px; }
+  .field label{
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.01em;
+    margin-bottom:7px;
+    color:var(--text-on-paper);
+  }
+  .field .req{ color:var(--crimson); }
+  .field input, .field select{
+    width:100%;
+    font-family:'Inter', sans-serif;
+    font-size:15px;
+    padding:12px 13px;
+    border:1.5px solid rgba(27,31,59,0.18);
+    background:#FFFDF8;
+    color:var(--text-on-paper);
+    border-radius:3px;
+    outline:none;
+    transition:border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .field input:focus, .field select:focus{
+    border-color:var(--ink-3);
+    box-shadow:0 0 0 3px rgba(28,35,64,0.12);
+  }
+  .field input::placeholder{ color:#B8AF9B; }
+  .field .err{
+    display:none;
+    font-size:12.5px;
+    color:var(--crimson);
+    margin-top:6px;
+  }
+  .field.invalid input, .field.invalid select{ border-color:var(--crimson); }
+  .field.invalid .err{ display:block; }
+
+  .row-2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+
+  button.submit{
+    margin-top:6px;
+    width:100%;
+    padding:15px 18px;
+    border:none;
+    border-radius:3px;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.01em;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    transition:background 0.15s ease, transform 0.1s ease;
+  }
+  button.submit:hover{ background:var(--ink-3); }
+  button.submit:active{ transform:translateY(1px); }
+  button.submit:disabled{ opacity:0.6; cursor:default; }
+
+  .form-note{
+    font-size:12px;
+    color:var(--muted-on-paper);
+    text-align:center;
+    margin-top:14px;
+    line-height:1.5;
+  }
+
+  /* ---------- success state ---------- */
+  .success{
+    display:none;
+    text-align:left;
+  }
+  .success.show{ display:block; }
+  .success .check{
+    width:46px; height:46px;
+    border-radius:50%;
+    background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px;
+  }
+  .success h2{ margin-bottom:8px; }
+  .success p{ font-size:14.5px; color:var(--muted-on-paper); line-height:1.6; margin:0 0 22px; }
+  .receipt{
+    background:#FFFDF8;
+    border:1.5px dashed rgba(27,31,59,0.22);
+    border-radius:3px;
+    padding:18px 20px;
+    display:grid;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .receipt .r{
+    display:flex; justify-content:space-between; font-size:14px;
+  }
+  .receipt .r span:first-child{ color:var(--muted-on-paper); }
+  .receipt .r span:last-child{ font-weight:600; }
+  .again{
+    background:none;
+    border:none;
+    color:var(--ink);
+    font-weight:600;
+    font-size:13.5px;
+    text-decoration:underline;
+    cursor:pointer;
+    padding:0;
+  }
+
+  form.hide{ display:none; }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid rgba(237,231,217,0.14);
+    padding:26px 0 40px;
+    font-size:12.5px;
+    color:var(--muted-on-ink);
+    display:flex;
+    justify-content:space-between;
+  }
+
+  @media (max-width: 880px){
+    .hero{ grid-template-columns:1fr; gap:40px; padding:44px 0 56px; }
+    .illustration{ order:-1; max-width:220px; margin:0 auto; }
+    h1{ max-width:none; }
+    .panel{ position:static; }
+    .row-2{ grid-template-columns:1fr; }
+    .topbar .wrap{ flex-direction:column; align-items:flex-start; gap:10px; }
+    footer{ flex-direction:column; gap:6px; }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">Inter-House Debate <em>Championship</em></div>
+  </div>
+</header>
+
+<main class="wrap hero">
+  <div class="hero-copy">
+    <p class="kicker">Resolved —</p>
+    <h1>that argument deserves an audience.</h1>
+    <p class="lede">Sign up to compete in this year's debate competition. Speaking slots, house pairings and lectern order will be sent to your school email once registration closes.</p>
+
+    <div class="facts">
+      <div class="fact">
+        <div class="label">Date</div>
+        <div class="value accent">Sun, 20 Sept</div>
+      </div>
+      <div class="fact">
+        <div class="label">Reporting time</div>
+        <div class="value">8:30 AM</div>
+      </div>
+      <div class="fact">
+        <div class="label">Venue</div>
+        <div class="value">School Auditorium</div>
+      </div>
+    </div>
+
+    <div class="checklist">
+      <div class="label">Before you register</div>
+      <ul>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.8L13 4.2" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Have your student ID card on hand — you'll need the number.
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.8L13 4.2" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          One entry per student. Roll number must match your class register.
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.8L13 4.2" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Registration closes the night before — 19 Sept, 11:59 PM.
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <div class="illustration">
+      <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="150" r="132" stroke="rgba(237,231,217,0.14)" stroke-width="1"/>
+        <circle cx="150" cy="150" r="104" stroke="rgba(237,231,217,0.1)" stroke-width="1"/>
+        <!-- gavel head -->
+        <g transform="rotate(-32 150 150)">
+          <rect x="118" y="70" width="64" height="40" rx="4" stroke="#E4BE45" stroke-width="2.2" class="stroke-draw"/>
+          <line x1="150" y1="110" x2="150" y2="196" stroke="#E4BE45" stroke-width="2.2" class="stroke-draw"/>
+          <line x1="128" y1="196" x2="172" y2="196" stroke="#E4BE45" stroke-width="2.2" stroke-linecap="round"/>
+        </g>
+        <!-- sound block -->
+        <rect x="118" y="214" width="72" height="16" rx="3" stroke="#8B2635" stroke-width="2" class="stroke-draw"/>
+        <!-- impact lines -->
+        <line x1="196" y1="150" x2="216" y2="144" stroke="#9498B5" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="198" y1="164" x2="219" y2="164" stroke="#9498B5" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="194" y1="178" x2="212" y2="186" stroke="#9498B5" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Register to speak</h2>
+      <span class="stamp">Closes 19 Sept</span>
+    </div>
+    <p class="sub">Fields marked <span class="req">*</span> are required.</p>
+
+    <form id="regForm" novalidate>
+      <div class="field" id="f-name">
+        <label for="name">Full name <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="e.g. Ayesha Rahman" autocomplete="name">
+        <div class="err">Enter your full name.</div>
+      </div>
+
+      <div class="row-2">
+        <div class="field" id="f-grade">
+          <label for="grade">Grade <span class="req">*</span></label>
+          <select id="grade">
+            <option value="" selected disabled>Select grade</option>
+            <option>6</option><option>7</option><option>8</option>
+            <option>9</option><option>10</option><option>11</option><option>12</option>
+          </select>
+          <div class="err">Select your grade.</div>
+        </div>
+        <div class="field" id="f-roll">
+          <label for="roll">Roll number <span class="req">*</span></label>
+          <input type="text" id="roll" placeholder="e.g. 24" inputmode="numeric">
+          <div class="err">Enter your roll number.</div>
+        </div>
+      </div>
+
+      <div class="field" id="f-sid">
+        <label for="sid">Student ID number <span class="req">*</span></label>
+        <input type="text" id="sid" placeholder="e.g. STU-2026-0431">
+        <div class="err">Enter your student ID number.</div>
+      </div>
+
+      <button type="submit" class="submit" id="submitBtn">
+        <span>Reserve my spot</span>
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 8H14M14 8L9 3M14 8L9 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <p class="form-note">Your details are shared with the debate committee organising this event.</p>
+    </form>
+
+    <div class="success" id="success">
+      <div class="check">
+        <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.8L13 4.2" stroke="#F5F1E6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2>You're on the roster.</h2>
+      <p>Bring your student ID on the day of the competition. Room and speaking order will be posted the morning of 20 September.</p>
+      <div class="receipt">
+        <div class="r"><span>Name</span><span id="rName"></span></div>
+        <div class="r"><span>Grade</span><span id="rGrade"></span></div>
+        <div class="r"><span>Roll no.</span><span id="rRoll"></span></div>
+        <div class="r"><span>Student ID</span><span id="rSid"></span></div>
+      </div>
+      <button class="again" id="regAgain">Register another student</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>Debate Committee · Inter-House Championship</span>
+    <span>Questions? Ask your house coordinator.</span>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('regForm');
+  const success = document.getElementById('success');
+  const submitBtn = document.getElementById('submitBtn');
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/movnbdda';
+
+  function validate(){
+    let ok = true;
+    const checks = [
+      ['f-name', document.getElementById('name').value.trim().length > 1],
+      ['f-grade', document.getElementById('grade').value !== ''],
+      ['f-roll', document.getElementById('roll').value.trim().length > 0],
+      ['f-sid', document.getElementById('sid').value.trim().length > 1],
+    ];
+    checks.forEach(([id, valid]) => {
+      const el = document.getElementById(id);
+      el.classList.toggle('invalid', !valid);
+      if(!valid) ok = false;
+    });
+    return ok;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if(!validate()) return;
+
+    const entry = {
+      name: document.getElementById('name').value.trim(),
+      grade: document.getElementById('grade').value,
+      roll: document.getElementById('roll').value.trim(),
+      sid: document.getElementById('sid').value.trim()
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.querySelector('span').textContent = 'Saving…';
+
+    try{
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry)
+      });
+
+      if(!res.ok) throw new Error('Formspree responded with ' + res.status);
+
+      document.getElementById('rName').textContent = entry.name;
+      document.getElementById('rGrade').textContent = entry.grade;
+      document.getElementById('rRoll').textContent = entry.roll;
+      document.getElementById('rSid').textContent = entry.sid;
+
+      form.classList.add('hide');
+      success.classList.add('show');
+    }catch(err){
+      console.error('Submission failed:', err);
+      alert("Something went wrong sending your registration. Please check your connection and try again.");
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.querySelector('span').textContent = 'Reserve my spot';
+  });
+
+  document.getElementById('regAgain').addEventListener('click', () => {
+    form.reset();
+    document.querySelectorAll('.field').forEach(f => f.classList.remove('invalid'));
+    form.classList.remove('hide');
+    success.classList.remove('show');
+  });
+</script>
+
+</body>
+</html>
